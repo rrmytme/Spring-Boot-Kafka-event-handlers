@@ -1,3 +1,5 @@
+This project will demonstrate how springboot services acted as producers/consumers and interact with kafka cluster and post/consume messages from relevant topic
+
 Step1: Install Kafka from https://kafka.apache.org/downloads --> one of the Binary file
 Step2: Add Spring for Kafka dependency
 Step3: Start your spring app
