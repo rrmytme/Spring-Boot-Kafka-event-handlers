@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class StringMessageProducer {
     @Value("${spring.kafka.topic.name}")
-    private String topicName;
+    private String kafkaTopic1_string_messages;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StringMessageProducer.class);
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+
+    public StringMessageProducer(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public void sendMessage(String message){
         LOGGER.info(String.format("Message sent %s", message));
-        kafkaTemplate.send(topicName, message);
+        kafkaTemplate.send(kafkaTopic1_string_messages, message);
     }
 }

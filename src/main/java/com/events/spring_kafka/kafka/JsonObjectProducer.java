@@ -13,11 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class JsonObjectProducer {
     @Value("${spring.kafka.topic-json.name}")
-    private String topicJsonName;
+    private String kafkaTopic1_json_objects;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonObjectProducer.class);
 
-    private KafkaTemplate<String, User> kafkaTemplate;
+    private final KafkaTemplate<String, User> kafkaTemplate;
+
+    public JsonObjectProducer(KafkaTemplate<String, User> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public void sendMessage(User data){
 
@@ -25,7 +29,7 @@ public class JsonObjectProducer {
 
         Message<User> message = MessageBuilder
                 .withPayload(data)
-                .setHeader(KafkaHeaders.TOPIC, topicJsonName)
+                .setHeader(KafkaHeaders.TOPIC, kafkaTopic1_json_objects)
                 .build();
 
         kafkaTemplate.send(message);
